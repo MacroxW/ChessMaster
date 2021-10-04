@@ -1,6 +1,6 @@
 ﻿namespace ChessMaster
 {
-    partial class Form1
+    partial class FormTablero
     {
         /// <summary>
         /// Variable del diseñador necesaria.
@@ -891,6 +891,7 @@
             // 
             // btnReiniciar
             // 
+            this.btnReiniciar.Enabled = false;
             this.btnReiniciar.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnReiniciar.Location = new System.Drawing.Point(919, 99);
             this.btnReiniciar.Name = "btnReiniciar";
@@ -918,7 +919,7 @@
             this.lblTurno.Size = new System.Drawing.Size(0, 25);
             this.lblTurno.TabIndex = 70;
             // 
-            // Form1
+            // FormTablero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -995,10 +996,9 @@
             this.Controls.Add(this.H1);
             this.Controls.Add(this.btnJugar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.Name = "Form1";
+            this.Name = "FormTablero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.H1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.G1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.E1)).EndInit();

@@ -15,6 +15,8 @@ namespace Chess_Cases
         private Point _desde;
         private Point _hasta;
         public string PiezaSelected;
+
+        
         public juegoAjedrez()
         {
 
@@ -315,56 +317,40 @@ namespace Chess_Cases
             return pude;
         }
 
-        public bool JaqueMateBlanco()
+        public char JaqueMate()
         {
-            bool JaqueMate = true;
+            char equipo = ' ';
+            bool negro = true, blanco = true;
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
                 {
                     if (tablero[x, y] != null)
                     {
-                        if(tablero[x,y]._color == 'b')
+                        if(tablero[x, y] is rey)
                         {
-                            if(tablero[x,y] is rey)
+                            if (tablero[x, y]._color == 'n')
                             {
-                                JaqueMate = false;
+                                negro = false;
+                                equipo = 'n';
+                            }
+                            else
+                            {
+                                blanco = false;
+                                equipo = 'b';
                             }
                         }
+                       
                     }
-
 
                 }
             }
-
-
-            return JaqueMate;
-        }
-
-        public bool JaqueMateNegro()
-        {
-            bool JaqueMate = true;
-            for (int x = 0; x < 8; x++)
+            if(negro == false && blanco == false)
             {
-                for (int y = 0; y < 8; y++)
-                {
-                    if (tablero[x, y] != null)
-                    {
-                        if (tablero[x, y]._color == 'n')
-                        {
-                            if (tablero[x, y] is rey)
-                            {
-                                JaqueMate = false;
-                            }
-                        }
-                    }
-
-
-                }
+                return ' ';
             }
 
-
-            return JaqueMate;
+            return equipo;
         }
     }
 }

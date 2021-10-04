@@ -1,6 +1,6 @@
 ﻿namespace ChessMaster
 {
-    partial class Form2
+    partial class FormInicio
     {
         /// <summary>
         /// Required designer variable.

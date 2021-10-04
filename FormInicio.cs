@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ChessMaster
 {
-    public partial class Form2 : Form
+    public partial class FormInicio : Form
     {
-        public Form2()
+        public FormInicio()
         {
             InitializeComponent();
         }
@@ -20,7 +20,7 @@ namespace ChessMaster
         private void btn_Local_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Form1 form1 = new Form1();
+            FormTablero form1 = new FormTablero();
             form1.Show();
 
         }
