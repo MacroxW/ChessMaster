@@ -1,0 +1,51 @@
+C:\Users\marki\Desktop\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+C:\Users\marki\Desktop\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+C:\Users\marki\Desktop\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+C:\Users\marki\Desktop\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+C:\Users\marki\Desktop\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+C:\Users\44362187\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+Z:\INFO\Programacion\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+Z:\INFO\Programacion\1Trimestre c#\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+C:\Users\44788400\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+Z:\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+Z:\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+Z:\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+Z:\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+Z:\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+Z:\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+C:\Users\Los Melli\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+C:\Users\Los Melli\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+C:\Users\Los Melli\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+C:\Users\Los Melli\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+C:\Users\Los Melli\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+C:\Users\marki\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+C:\Users\marki\Desktop\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+C:\Users\marki\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csprojAssemblyReference.cache
+C:\Users\marki\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+C:\Users\marki\Desktop\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.dll
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\bin\Debug\Chess-Cases.pdb
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.AssemblyReference.cache
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.csproj.CoreCompileInputs.cache
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.dll
+D:\marki\Documentos\Proyectos\Visual studio\ChessMaster\ChessMaster\Chess-Cases\obj\Debug\Chess-Cases.pdb
