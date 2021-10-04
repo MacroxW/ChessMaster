@@ -332,12 +332,10 @@ namespace Chess_Cases
                             if (tablero[x, y]._color == 'n')
                             {
                                 negro = false;
-                                equipo = 'n';
                             }
                             else
                             {
                                 blanco = false;
-                                equipo = 'b';
                             }
                         }
                        
@@ -348,6 +346,14 @@ namespace Chess_Cases
             if(negro == false && blanco == false)
             {
                 return ' ';
+            }
+            else if(negro == true)
+            {
+                return 'n';
+            }
+            else
+            {
+                return 'b';
             }
 
             return equipo;

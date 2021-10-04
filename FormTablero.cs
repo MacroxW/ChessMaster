@@ -236,10 +236,10 @@ namespace ChessMaster
 
             for (int i = 0; i < movimientos.Count(); i++)
             {
-                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].Y, movimientos[i].Y);
+                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].X, movimientos[i].Y);
                 pb.Image = imagen;
                 pb.Tag = algo;
-                
+                pb = new PictureBox();
             }
 
         }
@@ -263,8 +263,9 @@ namespace ChessMaster
 
             for (int i = 0; i < movimientos.Count(); i++)
             {
-                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].Y, movimientos[i].Y);
+                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].X, movimientos[i].Y);
                 pb.BackColor = imagen;
+                pb = new PictureBox();
             }
 
         }
