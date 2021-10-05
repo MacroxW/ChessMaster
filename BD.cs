@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace ChessMaster
 {
@@ -23,7 +24,14 @@ namespace ChessMaster
         private static SqlConnection Conectar()
         {
             SqlConnection conn = new SqlConnection(_connectionString);
-            conn.Open();
+            try
+            {
+                conn.Open();
+            }
+            catch(Exception e)
+            {
+                MessageBox.Show("Error al conectar a la Base de Datos!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             return conn;
         }
 

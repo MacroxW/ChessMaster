@@ -67,10 +67,7 @@ namespace ChessMaster
 
         }
 
-        private void FormLobby_Load(object sender, EventArgs e)
-        {
 
-        }
 
         private void rbtnBlancas_CheckedChanged(object sender, EventArgs e)
         {
@@ -84,15 +81,7 @@ namespace ChessMaster
             rbtnJug2Blancas.Checked = true;
         }
 
-        private void rbtnJug2Blancas_CheckedChanged(object sender, EventArgs e)
-        {
 
-        }
-
-        private void rbtnJug2Negras_CheckedChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnUnirse_Click(object sender, EventArgs e)
         {
@@ -119,9 +108,13 @@ namespace ChessMaster
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
 
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            this.Close();
+            FormInicio formInicio = new FormInicio();
+            formInicio.Show();
         }
 
         //crear 

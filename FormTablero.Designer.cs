@@ -96,6 +96,7 @@
             this.btnReiniciar = new System.Windows.Forms.Button();
             this.lblTituloTurno = new System.Windows.Forms.Label();
             this.lblTurno = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.H1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.G1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.E1)).BeginInit();
@@ -919,6 +920,17 @@
             this.lblTurno.Size = new System.Drawing.Size(0, 25);
             this.lblTurno.TabIndex = 70;
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnVolver.Location = new System.Drawing.Point(12, 13);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(178, 80);
+            this.btnVolver.TabIndex = 71;
+            this.btnVolver.Text = "Menu";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // FormTablero
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -927,6 +939,7 @@
             this.BackgroundImage = global::ChessMaster.Properties.Resources.tablero_01;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.ClientSize = new System.Drawing.Size(1109, 675);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.lblTurno);
             this.Controls.Add(this.lblTituloTurno);
             this.Controls.Add(this.btnReiniciar);
@@ -1137,6 +1150,7 @@
         private System.Windows.Forms.Button btnReiniciar;
         private System.Windows.Forms.Label lblTituloTurno;
         private System.Windows.Forms.Label lblTurno;
+        private System.Windows.Forms.Button btnVolver;
     }
 }
 

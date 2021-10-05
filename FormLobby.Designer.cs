@@ -45,6 +45,7 @@
             this.rbtnJug1Negras = new System.Windows.Forms.RadioButton();
             this.rbtnBlancas = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
+            this.btnVolver = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -99,15 +100,14 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(111, 38);
             this.textBox1.TabIndex = 2;
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Algerian", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 72F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(162, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(468, 106);
+            this.label1.Size = new System.Drawing.Size(369, 108);
             this.label1.TabIndex = 3;
             this.label1.Text = "Ajedrez";
             // 
@@ -157,7 +157,6 @@
             this.rbtnJug2Negras.TabStop = true;
             this.rbtnJug2Negras.Text = "Negras";
             this.rbtnJug2Negras.UseVisualStyleBackColor = true;
-            this.rbtnJug2Negras.CheckedChanged += new System.EventHandler(this.rbtnJug2Negras_CheckedChanged);
             // 
             // label3
             // 
@@ -180,7 +179,6 @@
             this.rbtnJug2Blancas.TabIndex = 10;
             this.rbtnJug2Blancas.Text = "Blancas";
             this.rbtnJug2Blancas.UseVisualStyleBackColor = true;
-            this.rbtnJug2Blancas.CheckedChanged += new System.EventHandler(this.rbtnJug2Blancas_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -242,18 +240,28 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Codigo:";
             // 
+            // btnVolver
+            // 
+            this.btnVolver.Location = new System.Drawing.Point(12, 12);
+            this.btnVolver.Name = "btnVolver";
+            this.btnVolver.Size = new System.Drawing.Size(111, 49);
+            this.btnVolver.TabIndex = 4;
+            this.btnVolver.Text = "Volver";
+            this.btnVolver.UseVisualStyleBackColor = true;
+            this.btnVolver.Click += new System.EventHandler(this.btnVolver_Click);
+            // 
             // FormLobby
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Peru;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnVolver);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormLobby";
             this.Text = "FormLobby";
-            this.Load += new System.EventHandler(this.FormLobby_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -286,5 +294,6 @@
         private System.Windows.Forms.Label lblJug1;
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnVolver;
     }
 }

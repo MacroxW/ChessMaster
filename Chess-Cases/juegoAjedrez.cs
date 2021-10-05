@@ -10,7 +10,7 @@ namespace Chess_Cases
     public partial class juegoAjedrez
     {
         private Pieza[,] _tablero = new Pieza[8, 8];
-        private char _turno = 'b';
+        private char _turno;
         private bool _fin;
         private Point _desde;
         private Point _hasta;
@@ -19,7 +19,8 @@ namespace Chess_Cases
         
         public juegoAjedrez()
         {
-
+            _fin = false;
+            _turno = 'b';
 
         }
 
@@ -43,7 +44,6 @@ namespace Chess_Cases
         public void agregar_pieza(Pieza unaPieza)
         {
             _tablero[unaPieza._posX, unaPieza._posY] = unaPieza;
-
 
         }
 

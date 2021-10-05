@@ -21,25 +21,11 @@ namespace ChessMaster
             InitializeComponent();
         }
 
-
-
         private void inicializarJuego()
         {
-            btnJugar.Enabled = false;
+            CambiarTurno();
 
-            juego.Turno = 'b';
-            juego.Fin = false;
-
-            if (juego.Turno == 'b')
-            {
-                lblTurno.Text = "Blancas";
-            }
-            else
-            {
-                lblTurno.Text = "Negras";
-            }
-
-            //----------------agregando piezas Negras------------
+            //Blancas: ----------------agregando piezas Negras------------
 
 
             juego.agregar_pieza(new torre(0, 7, 'n', Properties.Resources.nTorre, false));
@@ -59,7 +45,7 @@ namespace ChessMaster
 
 
             // Negras: Asignando imagenes a la imagen de la pieza que está en esa posicion 
-            
+
             A8.Image = juego.tablero[0, 7]._imagen;
             B8.Image = juego.tablero[1, 7]._imagen;
             C8.Image = juego.tablero[2, 7]._imagen;
@@ -118,128 +104,77 @@ namespace ChessMaster
         private void CambiarTurno()
         {
             if (juego.Turno == 'b')
-            {
                 lblTurno.Text = "Blancas";
-            }
             else
-            {
                 lblTurno.Text = "Negras";
-            }
         }
         private void LimpiarImagen(int X, int Y)
         {
-            PictureBox pb = TraerPictuboxDelTablero(X, Y);
+            PictureBox pb = TraerPBDelTablero(X, Y);
             pb.Image = null;
             pb.BackColor = Color.Transparent;
-           
         }
-        private void BackGroundTransparent(int X, int Y)
+        private void SetBackGroundTransparent(int X, int Y)
         {
-            PictureBox pb = TraerPictuboxDelTablero(X, Y);
-            pb.BackColor = Color.Transparent;
+            TraerPBDelTablero(X, Y).BackColor = Color.Transparent;
         }
-        private void ActualizarImagen(Point dest)
+        private void SetImagen(Point dest)
         {
-            PictureBox pb = TraerPictuboxDelTablero(dest.X, dest.Y);
+            PictureBox pb = TraerPBDelTablero(dest.X, dest.Y);
             pb.Image = juego.tablero[dest.X, dest.Y]._imagen;
             pb.Tag = null;
-         
+
         }
         private void RealizarJugada(Point anterior, Point dest)
         {
             LimpiarImagen(anterior.X, anterior.Y);
-            ActualizarImagen(dest);
+            SetImagen(dest);
 
         }
-
         private void BtnJugar_Click(object sender, EventArgs e)
         {
             inicializarJuego();
             lblTituloTurno.Text = "Turno:";
-
+            btnJugar.Enabled = false;
         }
 
-
-        public int BuscarNum(string letra)
+        private Point ObtenerCoordImagen(string nomImg)
         {
-            int numDevolver;
-            switch (letra)
-            {
-                case "A":
-                    numDevolver = 0;
-                    break;
-                case "B":
-                    numDevolver = 1;
-                    break;
-                case "C":
-                    numDevolver = 2;
-                    break;
-                case "D":
-                    numDevolver = 3;
-                    break;
-                case "E":
-                    numDevolver = 4;
-                    break;
-                case "F":
-                    numDevolver = 5;
-                    break;
-                case "G":
-                    numDevolver = 6;
-                    break;
-                case "H":
-                    numDevolver = 7;
-                    break;
-                default:
-                    MessageBox.Show("error interno. codigo BNUM");
-                    numDevolver = 0;
-                    break;
-            }
-            return numDevolver;
-        }
-        private Point ObtenerCoordXImagen(string nomImg)
-        {
-
-            string xStr;//una letra..
+            //Ingresa el nombre de una imagen( A2, F3) y devuelve
+            // las coordenadas en el tablero x,y
+            string letrasTablero = "ABCDEFGH";
             int x, y;
-            xStr = nomImg.Substring(0, 1).ToUpper();
+            y = Convert.ToInt32(nomImg.Substring(1, 1)) - 1;
+            x = letrasTablero.IndexOf(nomImg.Substring(0, 1));
 
-            y = Convert.ToInt32(nomImg.Substring(1, 1));
-            y = y - 1 + 1 - 1;
-            x = BuscarNum(xStr);
-            Point devolver = new Point(x, y);
-            return devolver;
-
+            return new Point(x, y);
         }
 
         List<Point> movimientosCache = new List<Point>();
         private void MostrarPosiblesMovimientos(bool mostrar)
         {
-            List<Point> movimientos = new List<Point>();
-            Image imagen = null;
-            int algo = 0;
+            List<Point> posibleMovimiento = new List<Point>();
+            Image imgPunto = null;
+            int bHayAlgo = 0;
 
             if (mostrar)
             {
-                algo = 1;
-                imagen = ChessMaster.Properties.Resources.punto;
-                movimientos = juego.tablero[juego.Desde.X, juego.Desde.Y].MostrarMov(juego.tablero, juego.Desde);
-                movimientosCache = new List<Point>(movimientos);
+                bHayAlgo = 1;
+                imgPunto = Properties.Resources.punto;
+                posibleMovimiento = juego.tablero[juego.Desde.X, juego.Desde.Y].MostrarMov(juego.tablero, juego.Desde);
+                movimientosCache = new List<Point>(posibleMovimiento);
             }
             else if (!mostrar)
             {
-                algo = 0;
-                imagen = null;
-                movimientos = new List<Point>(movimientosCache);
-
-                movimientos.Remove(juego.Hasta);
+                posibleMovimiento = new List<Point>(movimientosCache);
+                posibleMovimiento.Remove(juego.Hasta);
             }
 
-            for (int i = 0; i < movimientos.Count(); i++)
+            for (int i = 0; i < posibleMovimiento.Count(); i++)
             {
-                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].X, movimientos[i].Y);
-                pb.Image = imagen;
-                pb.Tag = algo;
-                pb = new PictureBox();
+                PictureBox pb = TraerPBDelTablero(posibleMovimiento[i].X, posibleMovimiento[i].Y);
+                pb.Image = imgPunto;
+                pb.Tag = bHayAlgo;
             }
 
         }
@@ -263,7 +198,7 @@ namespace ChessMaster
 
             for (int i = 0; i < movimientos.Count(); i++)
             {
-                PictureBox pb = TraerPictuboxDelTablero(movimientos[i].X, movimientos[i].Y);
+                PictureBox pb = TraerPBDelTablero(movimientos[i].X, movimientos[i].Y);
                 pb.BackColor = imagen;
                 pb = new PictureBox();
             }
@@ -280,7 +215,7 @@ namespace ChessMaster
                 if (((PictureBox)sender).Image != null)
                 {
 
-                    juego.Desde = ObtenerCoordXImagen(((PictureBox)sender).Name.ToString());
+                    juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
                     if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
                     {
                         ((PictureBox)sender).BackColor = Color.Chocolate;
@@ -306,15 +241,15 @@ namespace ChessMaster
                 if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent)
                 {
                     Point cosa = new Point();
-                    cosa = ObtenerCoordXImagen(((PictureBox)sender).Name);
+                    cosa = ObtenerCoordImagen(((PictureBox)sender).Name);
                     if (juego.tablero[cosa.X, cosa.Y] != null)
                     {
 
                         MostrarPosiblesMovimientos(false);
                         MostrarPosibleComer(false);
-                        BackGroundTransparent(juego.Desde.X, juego.Desde.Y);
+                        SetBackGroundTransparent(juego.Desde.X, juego.Desde.Y);
 
-                        juego.Desde = ObtenerCoordXImagen(((PictureBox)sender).Name.ToString());
+                        juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
                         if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
                         {
@@ -329,7 +264,7 @@ namespace ChessMaster
                 else
                 {
                     //realiza jugada
-                    juego.Hasta = ObtenerCoordXImagen(((PictureBox)sender).Name.ToString());
+                    juego.Hasta = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
                     if (juego.PudeRealizarJugada())
                     {
@@ -351,26 +286,22 @@ namespace ChessMaster
                                 }
                                 if (juego.PiezaSelected == "Caballo")
                                 {
-                                    Pieza bCaballo = new caballo(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bCaballo, true);
-                                    juego.agregar_pieza(bCaballo);
+                                    juego.agregar_pieza(new caballo(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bCaballo, true));
                                     ((PictureBox)sender).Image = Properties.Resources.bCaballo;
                                 }
-                                if (juego.PiezaSelected == "Reina")
+                                else if(juego.PiezaSelected == "Reina")
                                 {
-                                    Pieza bReina = new reina(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bReina, true);
-                                    juego.agregar_pieza(bReina);
+                                    juego.agregar_pieza(new reina(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bReina, true));
                                     ((PictureBox)sender).Image = Properties.Resources.bReina;
                                 }
-                                if (juego.PiezaSelected == "Alfil")
+                                else if(juego.PiezaSelected == "Alfil")
                                 {
-                                    Pieza bAlfil = new alfil(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bAlfil, true);
-                                    juego.agregar_pieza(bAlfil);
+                                    juego.agregar_pieza(new alfil(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bAlfil, true));
                                     ((PictureBox)sender).Image = Properties.Resources.bAlfil;
                                 }
-                                if (juego.PiezaSelected == "Torre")
+                                else if(juego.PiezaSelected == "Torre")
                                 {
-                                    Pieza bTorre = new torre(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bTorre, true);
-                                    juego.agregar_pieza(bTorre);
+                                    juego.agregar_pieza(new torre(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bTorre, true));
                                     ((PictureBox)sender).Image = Properties.Resources.bTorre;
                                 }
                                 juego.PiezaSelected = null;
@@ -379,33 +310,30 @@ namespace ChessMaster
                             {
                                 while (juego.PiezaSelected == null)
                                 {
-                                    Form3 form3 = new Form3('n');
+                                    Form3 form3 = new Form3(color = 'n');
                                     form3.ShowDialog();
                                     juego.PiezaSelected = form3.piezaSelected;
                                 }
                                 //
                                 if (juego.PiezaSelected == "Caballo")
                                 {
-                                    Pieza nCaballo = new caballo(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nCaballo, true);
-                                    juego.agregar_pieza(nCaballo);
+                                    object imgSrc = Properties.Resources.ResourceManager.GetObject("nCaballo");
+                                    juego.agregar_pieza( new caballo(juego.Hasta.X, juego.Hasta.Y, 'n', (Image)imgSrc, true));
                                     ((PictureBox)sender).Image = Properties.Resources.nCaballo;
                                 }
-                                if (juego.PiezaSelected == "Reina")
+                                else if (juego.PiezaSelected == "Reina")
                                 {
-                                    Pieza nReina = new reina(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nReina, true);
-                                    juego.agregar_pieza(nReina);
+                                    juego.agregar_pieza( new reina(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nReina, true));
                                     ((PictureBox)sender).Image = Properties.Resources.nReina;
                                 }
-                                if (juego.PiezaSelected == "Alfil")
+                                else if(juego.PiezaSelected == "Alfil")
                                 {
-                                    Pieza nAlfil = new alfil(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nAlfil, true);
-                                    juego.agregar_pieza(nAlfil);
+                                    juego.agregar_pieza( new alfil(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nAlfil, true));
                                     ((PictureBox)sender).Image = Properties.Resources.nAlfil;
                                 }
-                                if (juego.PiezaSelected == "Torre")
+                                else if(juego.PiezaSelected == "Torre")
                                 {
-                                    Pieza nTorre = new torre(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nTorre, true);
-                                    juego.agregar_pieza(nTorre);
+                                    juego.agregar_pieza( new torre(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nTorre, true));
                                     ((PictureBox)sender).Image = Properties.Resources.nTorre;
                                 }
                                 juego.PiezaSelected = null;
@@ -445,10 +373,10 @@ namespace ChessMaster
             inicializarJuego();
             btnJugar.Enabled = true;
         }
-        private PictureBox TraerPictuboxDelTablero(int X, int Y)
+        private PictureBox TraerPBDelTablero(int X, int Y)
         {
             PictureBox pb = new PictureBox();
-            
+
             switch (X)
             {
                 case 0:
@@ -746,11 +674,26 @@ namespace ChessMaster
                             pb = H8;
                             break;
                     }
-                   break;
+                    break;
             }
 
             return pb;
-        
+
+        }
+
+        private void btnVolver_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = MessageBox.Show("Se borrará el juego, estás seguro?", "Advertencia", 
+                MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            if (dr == DialogResult.Yes)
+            {
+                this.Hide();
+                FormInicio formInicio = new FormInicio();
+                formInicio.Show();
+
+            }
+
+          
         }
     }
 }

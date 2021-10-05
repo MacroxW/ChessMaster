@@ -75,6 +75,9 @@
     <Compile Include="Lobby.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FormInicio.es-AR.resx">
+      <DependentUpon>FormInicio.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormTablero.resx">
       <DependentUpon>FormTablero.cs</DependentUpon>
     </EmbeddedResource>
