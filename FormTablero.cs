@@ -12,13 +12,11 @@ namespace ChessMaster
     {
         public char color;
         public string ficha;
-        // 
-
-        juegoAjedrez juego = new juegoAjedrez();
-
+        juegoAjedrez juego;
         public FormTablero()
         {
             InitializeComponent();
+            juego = new juegoAjedrez();
         }
 
         private void inicializarJuego()
@@ -36,35 +34,10 @@ namespace ChessMaster
             juego.agregar_pieza(new alfil(5, 7, 'n', Properties.Resources.nAlfil, false));
             juego.agregar_pieza(new caballo(6, 7, 'n', Properties.Resources.nCaballo, true));
             juego.agregar_pieza(new torre(7, 7, 'n', Properties.Resources.nTorre, false));
-
-
             for (int i = 0; i < 8; i++)
             {
                 juego.agregar_pieza(new peon(i, 6, 'n', Properties.Resources.nPeon, false));
             }
-
-
-            // Negras: Asignando imagenes a la imagen de la pieza que está en esa posicion 
-
-            A8.Image = juego.tablero[0, 7]._imagen;
-            B8.Image = juego.tablero[1, 7]._imagen;
-            C8.Image = juego.tablero[2, 7]._imagen;
-            D8.Image = juego.tablero[3, 7]._imagen;
-            E8.Image = juego.tablero[4, 7]._imagen;
-            F8.Image = juego.tablero[5, 7]._imagen;
-            G8.Image = juego.tablero[6, 7]._imagen;
-            H8.Image = juego.tablero[7, 7]._imagen;
-
-            A7.Image = juego.tablero[0, 6]._imagen;
-            B7.Image = juego.tablero[1, 6]._imagen;
-            C7.Image = juego.tablero[2, 6]._imagen;
-            D7.Image = juego.tablero[3, 6]._imagen;
-            E7.Image = juego.tablero[4, 6]._imagen;
-            F7.Image = juego.tablero[5, 6]._imagen;
-            G7.Image = juego.tablero[6, 6]._imagen;
-            H7.Image = juego.tablero[7, 6]._imagen;
-
-            //----------------agregando piezas Blancas------------
 
             juego.agregar_pieza(new torre(0, 0, 'b', Properties.Resources.bTorre, false));
             juego.agregar_pieza(new caballo(1, 0, 'b', Properties.Resources.bCaballo, true));
@@ -74,33 +47,28 @@ namespace ChessMaster
             juego.agregar_pieza(new alfil(5, 0, 'b', Properties.Resources.bAlfil, false));
             juego.agregar_pieza(new caballo(6, 0, 'b', Properties.Resources.bCaballo, true));
             juego.agregar_pieza(new torre(7, 0, 'b', Properties.Resources.bTorre, false));
-
             for (int i = 0; i < 8; i++)
             {
                 juego.agregar_pieza(new peon(i, 1, 'b', Properties.Resources.bPeon, false));
             }
 
-            // Blancas: Asignando imagenes a la imagen de la pieza que está en esa posicion 
+            //Asignando imagenes a la imagen de la pieza que está en esa posicion 
+            for (int y = 0; y < 2; y++)
+            {
+                for (int x = 0; x < 8; x++)
+                {
+                    PictureBox pb = TraerPBDelTablero(x, y);
 
-            A1.Image = juego.tablero[0, 0]._imagen;
-            B1.Image = juego.tablero[1, 0]._imagen;
-            C1.Image = juego.tablero[2, 0]._imagen;
-            D1.Image = juego.tablero[3, 0]._imagen;
-            E1.Image = juego.tablero[4, 0]._imagen;
-            F1.Image = juego.tablero[5, 0]._imagen;
-            G1.Image = juego.tablero[6, 0]._imagen;
-            H1.Image = juego.tablero[7, 0]._imagen;
-
-            A2.Image = juego.tablero[0, 1]._imagen;
-            B2.Image = juego.tablero[1, 1]._imagen;
-            C2.Image = juego.tablero[2, 1]._imagen;
-            D2.Image = juego.tablero[3, 1]._imagen;
-            E2.Image = juego.tablero[4, 1]._imagen;
-            F2.Image = juego.tablero[5, 1]._imagen;
-            G2.Image = juego.tablero[6, 1]._imagen;
-            H2.Image = juego.tablero[7, 1]._imagen;
+                    pb.Image = juego.tablero[x, y]._imagen;   //Blancas
+                    pb = new PictureBox();
+                    pb = TraerPBDelTablero(x, 7 - y);
+                    pb.Image = juego.tablero[x, 7-y]._imagen; //Negras
+                }
+            }
 
         }
+        
+        
         private void CambiarTurno()
         {
             if (juego.Turno == 'b')
@@ -361,7 +329,7 @@ namespace ChessMaster
         private PictureBox TraerPBDelTablero(int X, int Y)
         {
             PictureBox pb = new PictureBox();
-
+            
             switch (X)
             {
                 case 0:
