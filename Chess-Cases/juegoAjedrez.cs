@@ -94,6 +94,7 @@ namespace Chess_Cases
                 }
             }
         }
+
         private List<Point> BuscarPiezaJaqueBlanco()
         {
             Point p = new Point();
@@ -316,7 +317,11 @@ namespace Chess_Cases
          
             return pude;
         }
-
+        
+        /// <summary>
+        /// Checkea el JaqueMate.
+        /// Devuelve b si perdio ,n si perdio o ' ' si no es jaquemate
+        /// </summary>
         public char JaqueMate()
         {
             char equipo = ' ';
@@ -358,5 +363,7 @@ namespace Chess_Cases
 
             return equipo;
         }
+    
+
     }
 }

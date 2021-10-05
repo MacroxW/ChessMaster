@@ -13,14 +13,16 @@ namespace ChessMaster
         public char color;
         public string ficha;
         juegoAjedrez juego;
+        //PictureBox[,] matrizPB = new PictureBox[8, 8];
         public FormTablero()
         {
             InitializeComponent();
-            juego = new juegoAjedrez();
+            
         }
 
         private void inicializarJuego()
         {
+            juego = new juegoAjedrez();
             CambiarTurno();
 
             //Blancas: ----------------agregando piezas Negras------------
@@ -34,10 +36,7 @@ namespace ChessMaster
             juego.agregar_pieza(new alfil(5, 7, 'n', Properties.Resources.nAlfil, false));
             juego.agregar_pieza(new caballo(6, 7, 'n', Properties.Resources.nCaballo, true));
             juego.agregar_pieza(new torre(7, 7, 'n', Properties.Resources.nTorre, false));
-            for (int i = 0; i < 8; i++)
-            {
-                juego.agregar_pieza(new peon(i, 6, 'n', Properties.Resources.nPeon, false));
-            }
+
 
             juego.agregar_pieza(new torre(0, 0, 'b', Properties.Resources.bTorre, false));
             juego.agregar_pieza(new caballo(1, 0, 'b', Properties.Resources.bCaballo, true));
@@ -47,9 +46,11 @@ namespace ChessMaster
             juego.agregar_pieza(new alfil(5, 0, 'b', Properties.Resources.bAlfil, false));
             juego.agregar_pieza(new caballo(6, 0, 'b', Properties.Resources.bCaballo, true));
             juego.agregar_pieza(new torre(7, 0, 'b', Properties.Resources.bTorre, false));
+
             for (int i = 0; i < 8; i++)
             {
                 juego.agregar_pieza(new peon(i, 1, 'b', Properties.Resources.bPeon, false));
+                juego.agregar_pieza(new peon(i, 6, 'n', Properties.Resources.nPeon, false));
             }
 
             //Asignando imagenes a la imagen de la pieza que está en esa posicion 
@@ -58,7 +59,6 @@ namespace ChessMaster
                 for (int x = 0; x < 8; x++)
                 {
                     PictureBox pb = TraerPBDelTablero(x, y);
-
                     pb.Image = juego.tablero[x, y]._imagen;   //Blancas
                     pb = new PictureBox();
                     pb = TraerPBDelTablero(x, 7 - y);
@@ -67,8 +67,6 @@ namespace ChessMaster
             }
 
         }
-        
-        
         private void CambiarTurno()
         {
             if (juego.Turno == 'b')
@@ -176,24 +174,18 @@ namespace ChessMaster
 
         private void pb_click(object sender, EventArgs e)
         {
-            char jaque = ' ';
+            char jaqueMate = ' ';
             //seleccionar una foto
-            if (!pbSelected)
+            if ( !pbSelected  && ((PictureBox)sender).Image != null)
             {
-                if (((PictureBox)sender).Image != null)
+                juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
+                if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
                 {
-
-                    juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
-                    if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
-                    {
-                        ((PictureBox)sender).BackColor = Color.Chocolate;
-                        pbSelected = true;
-                        MostrarPosiblesMovimientos(true);
-                        MostrarPosibleComer(true);
-                    }
-
+                    ((PictureBox)sender).BackColor = Color.Chocolate;
+                    pbSelected = true;
+                    MostrarPosiblesMovimientos(true);
+                    MostrarPosibleComer(true);
                 }
-
             }
             else if(pbSelected)
             {
@@ -241,8 +233,8 @@ namespace ChessMaster
                         MostrarPosiblesMovimientos(false);
                         MostrarPosibleComer(false);
 
-                        jaque = juego.JaqueMate();
-                        if (jaque == ' ')
+                        jaqueMate = juego.JaqueMate();
+                        if (jaqueMate == ' ')
                         {
                             if (juego.Hasta.Y == 7 && juego.tablero[juego.Hasta.X, juego.Hasta.Y] is peon && juego.tablero[juego.Hasta.X, juego.Hasta.Y]._color == 'b')
                             {
@@ -306,18 +298,16 @@ namespace ChessMaster
                                 }
                                 juego.PiezaSelected = null;
                             }
+                            
                             CambiarTurno();
                         }
                         else
                         {
-                            if (jaque == ' ')
-                            {
-                                MessageBox.Show("Jaque Mate! Gano el Blanco");
-                            }
-                            else
-                            {
+                            if (jaqueMate == 'b')
                                 MessageBox.Show("Jaque Mate! Gano el Negro");
-                            }
+                            else
+                                MessageBox.Show("Jaque Mate! Gano el Blanco");
+                            btnReiniciar.Enabled = true;
                         }
                     }
 
@@ -665,8 +655,6 @@ namespace ChessMaster
                 formInicio.Show();
 
             }
-
-          
         }
     }
 }
