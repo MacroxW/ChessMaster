@@ -153,7 +153,7 @@ namespace ChessMaster
         List<Point> movimientosCache = new List<Point>();
         private void MostrarPosiblesMovimientos(bool mostrar)
         {
-            List<Point> posibleMovimiento = new List<Point>();
+            List<Point> posiblesMovimiento = new List<Point>();
             Image imgPunto = null;
             int bHayAlgo = 0;
 
@@ -161,18 +161,20 @@ namespace ChessMaster
             {
                 bHayAlgo = 1;
                 imgPunto = Properties.Resources.punto;
-                posibleMovimiento = juego.tablero[juego.Desde.X, juego.Desde.Y].MostrarMov(juego.tablero, juego.Desde);
-                movimientosCache = new List<Point>(posibleMovimiento);
-            }
-            else if (!mostrar)
-            {
-                posibleMovimiento = new List<Point>(movimientosCache);
-                posibleMovimiento.Remove(juego.Hasta);
-            }
 
-            for (int i = 0; i < posibleMovimiento.Count(); i++)
+                //seleccionamos pieza y la pieza devuelve a donde se puede mover
+                posiblesMovimiento = juego.tablero[juego.Desde.X, juego.Desde.Y].MostrarMov(juego.tablero, juego.Desde);
+                movimientosCache = new List<Point>(posiblesMovimiento);
+            }
+            else //!mostrar
             {
-                PictureBox pb = TraerPBDelTablero(posibleMovimiento[i].X, posibleMovimiento[i].Y);
+                posiblesMovimiento = new List<Point>(movimientosCache);
+                posiblesMovimiento.Remove(juego.Hasta);
+            }
+            //pintamos por donde se puede mover
+            for (int i = 0; i < posiblesMovimiento.Count(); i++)
+            {
+                PictureBox pb = TraerPBDelTablero(posiblesMovimiento[i]);
                 pb.Image = imgPunto;
                 pb.Tag = bHayAlgo;
             }
@@ -198,19 +200,17 @@ namespace ChessMaster
 
             for (int i = 0; i < movimientos.Count(); i++)
             {
-                PictureBox pb = TraerPBDelTablero(movimientos[i].X, movimientos[i].Y);
-                pb.BackColor = imagen;
-                pb = new PictureBox();
+                TraerPBDelTablero(movimientos[i]).BackColor = imagen;
             }
 
         }
-        bool selected = false;
+        bool pbSelected = false;
 
         private void pb_click(object sender, EventArgs e)
         {
             char jaque = ' ';
             //seleccionar una foto
-            if (!selected)
+            if (!pbSelected)
             {
                 if (((PictureBox)sender).Image != null)
                 {
@@ -219,7 +219,7 @@ namespace ChessMaster
                     if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
                     {
                         ((PictureBox)sender).BackColor = Color.Chocolate;
-                        selected = true;
+                        pbSelected = true;
                         MostrarPosiblesMovimientos(true);
                         MostrarPosibleComer(true);
                     }
@@ -227,12 +227,12 @@ namespace ChessMaster
                 }
 
             }
-            else
+            else if(pbSelected)
             {
                 //if - deseleccionar una foto
                 if (((PictureBox)sender).BackColor == Color.Chocolate)
                 {
-                    selected = false;
+                    pbSelected = false;
                     ((PictureBox)sender).BackColor = Color.Transparent;
                     MostrarPosiblesMovimientos(false);
                     MostrarPosibleComer(false);
@@ -240,9 +240,9 @@ namespace ChessMaster
                 }//cambiar ficha
                 if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent)
                 {
-                    Point cosa = new Point();
-                    cosa = ObtenerCoordImagen(((PictureBox)sender).Name);
-                    if (juego.tablero[cosa.X, cosa.Y] != null)
+                    Point coord_img = new Point();
+                    coord_img = ObtenerCoordImagen(((PictureBox)sender).Name);
+                    if (juego.tablero[coord_img.X, coord_img.Y] != null)
                     {
 
                         MostrarPosiblesMovimientos(false);
@@ -254,7 +254,7 @@ namespace ChessMaster
                         if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
                         {
                             ((PictureBox)sender).BackColor = Color.Chocolate;
-                            selected = true;
+                            pbSelected = true;
                             MostrarPosiblesMovimientos(true);
                             MostrarPosibleComer(true);
                         }
@@ -268,7 +268,7 @@ namespace ChessMaster
 
                     if (juego.PudeRealizarJugada())
                     {
-                        selected = false;
+                        pbSelected = false;
                         RealizarJugada(juego.Desde, juego.Hasta);
                         MostrarPosiblesMovimientos(false);
                         MostrarPosibleComer(false);
@@ -358,21 +358,6 @@ namespace ChessMaster
             }
         }
 
-        private void btnReiniciar_Click(object sender, EventArgs e)
-        {
-            juego = new juegoAjedrez();
-
-            for (int x = 0; x < 8; x++)
-            {
-                for (int y = 0; y < 8; y++)
-                {
-                    LimpiarImagen(x, y);
-                }
-
-            }
-            inicializarJuego();
-            btnJugar.Enabled = true;
-        }
         private PictureBox TraerPBDelTablero(int X, int Y)
         {
             PictureBox pb = new PictureBox();
@@ -679,6 +664,26 @@ namespace ChessMaster
 
             return pb;
 
+        }
+        private PictureBox TraerPBDelTablero(Point punto)
+        {
+            return TraerPBDelTablero(punto.X, punto.Y);
+        }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            juego = new juegoAjedrez();
+
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
+                    LimpiarImagen(x, y);
+                }
+
+            }
+            inicializarJuego();
+            btnJugar.Enabled = true;
         }
 
         private void btnVolver_Click(object sender, EventArgs e)
