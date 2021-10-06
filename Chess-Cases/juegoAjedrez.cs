@@ -15,13 +15,13 @@ namespace Chess_Cases
         private Point _desde;
         private Point _hasta;
         public string PiezaSelected;
-
+        public string state = "";
         
         public juegoAjedrez()
         {
             _fin = false;
             _turno = 'b';
-
+            state = "jugando";
         }
 
         public Pieza[,] tablero

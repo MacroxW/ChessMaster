@@ -190,6 +190,11 @@ namespace ChessMaster
 
         private void pb_click(object sender, EventArgs e)
         {
+            if(juego.state == "terminado")
+            {
+                return;
+            }
+
             char jaqueMate = ' ';
       
             if ( !pbSelected  && ((PictureBox)sender).Image != null)      //seleccionar una foto
@@ -232,8 +237,7 @@ namespace ChessMaster
 
                 }
                 else //realiza jugada
-                {
-                    
+                {        
                     juego.Hasta = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
                     if (juego.RealizarJugada())
@@ -243,12 +247,13 @@ namespace ChessMaster
                         MostrarPosiblesMovimientos(false,false);
 
                         jaqueMate = juego.JaqueMate();
-                        if (jaqueMate != ' ') // no hay jaquemate
+                        if (jaqueMate != ' ') // hay jaquemate
                         {
                             if (jaqueMate == 'b')
                                 MessageBox.Show("Jaque Mate! Gano el Negro");
                             else
                                 MessageBox.Show("Jaque Mate! Gano el Blanco");
+                            juego.state = "terminado";
                             btnReiniciar.Enabled = true;
                         }
                         else
