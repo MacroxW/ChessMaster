@@ -191,8 +191,8 @@ namespace ChessMaster
         private void pb_click(object sender, EventArgs e)
         {
             char jaqueMate = ' ';
-            //seleccionar una foto
-            if ( !pbSelected  && ((PictureBox)sender).Image != null)
+      
+            if ( !pbSelected  && ((PictureBox)sender).Image != null)      //seleccionar una foto
             {
                 
                 juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
@@ -202,41 +202,38 @@ namespace ChessMaster
                     pbSelected = true;
                 }
             }
-            else if(pbSelected)
+            else if(pbSelected) 
             {
-                //if - deseleccionar una foto
-                if (((PictureBox)sender).BackColor == Color.Chocolate)
+              
+                if (((PictureBox)sender).BackColor == Color.Chocolate)  //deseleccionar una foto
                 {
                     seleccionar_pieza(juego.Desde, ((PictureBox)sender), Color.Transparent, false, false);
                     pbSelected = false;
 
-                }//cambiar ficha
-                else if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent)
+                }
+                else if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent) //cambiar ficha
                 {
                     Point coord_img = new Point();
                     coord_img = ObtenerCoordImagen(((PictureBox)sender).Name);
                     if (juego.tablero[coord_img.X, coord_img.Y] != null)
                     {
 
-                        MostrarPosiblesMovimientos(false);
-                        MostrarPosibleComer(false);
+                        MostrarPosiblesMovimientos(false,false);
                         SetBackGroundTransparent(juego.Desde.X, juego.Desde.Y);
 
                         juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
                         if (juego.PiezaTurnoJugador(juego.Desde))
                         {
-                            ((PictureBox)sender).BackColor = Color.Chocolate;
+                            seleccionar_pieza(juego.Desde, ((PictureBox)sender), Color.Chocolate, true, true);
                             pbSelected = true;
-                            MostrarPosiblesMovimientos(true);
-                            MostrarPosibleComer(true);
                         }
                     }
 
                 }
-                else
+                else //realiza jugada
                 {
-                    //realiza jugada
+                    
                     juego.Hasta = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
                     if (juego.RealizarJugada())
@@ -246,70 +243,45 @@ namespace ChessMaster
                         MostrarPosiblesMovimientos(false,false);
 
                         jaqueMate = juego.JaqueMate();
-                        if (jaqueMate == ' ') // no hay jaquemate
-                        {
-                            if (juego.EvaluarConvertirPeon('b')) 
-                            {
-                                PedirCambioCoronacion('b');
-                                if (juego.PiezaSelected == "Caballo")
-                                {
-                                    juego.agregar_pieza(new caballo(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bCaballo, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.bCaballo;
-                                }
-                                else if(juego.PiezaSelected == "Reina")
-                                {
-                                    juego.agregar_pieza(new reina(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bReina, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.bReina;
-                                }
-                                else if(juego.PiezaSelected == "Alfil")
-                                {
-                                    juego.agregar_pieza(new alfil(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bAlfil, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.bAlfil;
-                                }
-                                else if(juego.PiezaSelected == "Torre")
-                                {
-                                    juego.agregar_pieza(new torre(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bTorre, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.bTorre;
-                                }
-                                juego.PiezaSelected = null;
-                            }
-                            else if (juego.EvaluarConvertirPeon('n'))
-                            {
-                                PedirCambioCoronacion('n');
-                                //
-                                if (juego.PiezaSelected == "Caballo")
-                                {
-                                    object imgSrc = Properties.Resources.ResourceManager.GetObject("nCaballo");
-                                    juego.agregar_pieza( new caballo(juego.Hasta.X, juego.Hasta.Y, 'n', (Image)imgSrc, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.nCaballo;
-                                }
-                                else if (juego.PiezaSelected == "Reina")
-                                {
-                                    juego.agregar_pieza( new reina(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nReina, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.nReina;
-                                }
-                                else if(juego.PiezaSelected == "Alfil")
-                                {
-                                    juego.agregar_pieza( new alfil(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nAlfil, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.nAlfil;
-                                }
-                                else if(juego.PiezaSelected == "Torre")
-                                {
-                                    juego.agregar_pieza( new torre(juego.Hasta.X, juego.Hasta.Y, 'n', Properties.Resources.nTorre, true));
-                                    ((PictureBox)sender).Image = Properties.Resources.nTorre;
-                                }
-                                juego.PiezaSelected = null;
-                            }
-                            
-                            CambiarTurno();
-                        }
-                        else
+                        if (jaqueMate != ' ') // no hay jaquemate
                         {
                             if (jaqueMate == 'b')
                                 MessageBox.Show("Jaque Mate! Gano el Negro");
                             else
                                 MessageBox.Show("Jaque Mate! Gano el Blanco");
                             btnReiniciar.Enabled = true;
+                        }
+                        else
+                        {
+                            char color_peon = juego.EvaluarConvertirPeon();
+                            if (color_peon != ' ')
+                            {
+                                PedirCambioCoronacion(color_peon);
+                                object imgPieza = Properties.Resources.ResourceManager.GetObject(color_peon + juego.PiezaSelected);
+                                switch (juego.PiezaSelected)
+                                {
+                                    case "Caballo":
+                                        juego.agregar_pieza(new caballo(juego.Hasta.X, juego.Hasta.Y, color_peon, (Image)imgPieza, true));
+                                        ((PictureBox)sender).Image = (Image)imgPieza;
+                                        break;
+                                    case "Reina":
+                                        juego.agregar_pieza(new reina(juego.Hasta.X, juego.Hasta.Y, color_peon, (Image)imgPieza, true));
+                                        ((PictureBox)sender).Image = (Image)imgPieza;
+                                        break;
+                                    case "Alfil":
+                                        juego.agregar_pieza(new alfil(juego.Hasta.X, juego.Hasta.Y, color_peon, (Image)imgPieza, true));
+                                        ((PictureBox)sender).Image = (Image)imgPieza;
+                                        break;
+                                    case "Torre":
+                                        juego.agregar_pieza(new torre(juego.Hasta.X, juego.Hasta.Y, color_peon, (Image)imgPieza, true));
+                                        ((PictureBox)sender).Image = (Image)imgPieza;
+                                        break;
+                                    default:
+                                        break;
+                                }
+                                juego.PiezaSelected = null;
+                            }
+                            CambiarTurno();
                         }
                     }
 

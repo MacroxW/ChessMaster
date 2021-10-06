@@ -378,15 +378,18 @@ namespace Chess_Cases
         }
         /// <summary>
         /// Verifica si tiene que converitse el peon
+        /// Devuelve el color del peon a convertir
+        /// ' ' si no hay nada 
         /// </summary>
-        public bool EvaluarConvertirPeon(char color)
+        public char EvaluarConvertirPeon()
         {
-            bool convertir = false;
-                if (tablero[Hasta.X, 7]._color == color && tablero[Hasta.X, 7] is peon)
-                    convertir = true;
-                if (tablero[Hasta.X, 0]._color == color && tablero[Hasta.X, 0] is peon)
-                    convertir = true;
-            return convertir;
+            char color = ' ';
+            if (tablero[Hasta.X, 7]._color == 'b' && tablero[Hasta.X, 7] is peon)
+                color = 'b';
+            if (tablero[Hasta.X, 0]._color == 'n'&& tablero[Hasta.X, 0] is peon)
+                color = 'n';
+                    
+            return color;
         }
     }
 }
