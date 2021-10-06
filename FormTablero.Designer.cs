@@ -1012,6 +1012,7 @@
             this.Name = "FormTablero";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FormTablero_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.H1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.G1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.E1)).EndInit();

@@ -47,20 +47,20 @@ namespace Chess_Cases
 
         }
 
-        private bool EsMovimientoValido()
+        private bool EsMovimientoValido(Point desde, Point hasta )
         {
             bool retorno = false;
             List<Point> MovimientosValidos;
             List<Point> MovimientosValidosComer;
-            Pieza pieza = tablero[Desde.X, Desde.Y];
-            MovimientosValidos = pieza.MostrarMov(tablero, Desde);
-            MovimientosValidosComer = pieza.MostrarComer(tablero, Desde);
+            Pieza pieza = tablero[desde.X, desde.Y];
+            MovimientosValidos = pieza.MostrarMov(tablero, desde);
+            MovimientosValidosComer = pieza.MostrarComer(tablero, desde);
             MovimientosValidos.AddRange(MovimientosValidosComer);
             int i = 0;
              
             if (MovimientosValidos.Count() != 0)
             {
-                while (i < MovimientosValidos.Count() - 1 && MovimientosValidos[i] != Hasta)
+                while (i < MovimientosValidos.Count() - 1 && MovimientosValidos[i] != hasta)
                 {
                     i++;
                 }
@@ -296,13 +296,17 @@ namespace Chess_Cases
             }
             return Jaque;
         }
-        public bool PudeRealizarJugada()
+
+        /// <summary>
+        /// Realiza la jugada. devuelve false si no pudo
+        /// </summary>
+        public bool RealizarJugada()
         {
             //realiza la jugada
             bool pude = false;
             if (tablero[Desde.X, Desde.Y] != null && tablero[Desde.X,Desde.Y]._color == Turno)
             {
-                if (EsMovimientoValido())
+                if (EsMovimientoValido(Desde,Hasta))
                 {
                     //la pieza se translada a la nueva pos y la anterior queda sin nada
                     _tablero[Hasta.X, Hasta.Y] = _tablero[Desde.X, Desde.Y];
@@ -363,7 +367,26 @@ namespace Chess_Cases
 
             return equipo;
         }
-    
-
+        /// <summary>
+        /// Verifica que la pieza a la que se apunta sea del mismo jugador
+        /// </summary>
+        public bool PiezaTurnoJugador(Point desde)
+        {
+            bool esPieza = false;
+            esPieza = tablero[desde.X, desde.Y]._color == Turno;
+            return esPieza;
+        }
+        /// <summary>
+        /// Verifica si tiene que converitse el peon
+        /// </summary>
+        public bool EvaluarConvertirPeon(char color)
+        {
+            bool convertir = false;
+                if (tablero[Hasta.X, 7]._color == color && tablero[Hasta.X, 7] is peon)
+                    convertir = true;
+                if (tablero[Hasta.X, 0]._color == color && tablero[Hasta.X, 0] is peon)
+                    convertir = true;
+            return convertir;
+        }
     }
 }

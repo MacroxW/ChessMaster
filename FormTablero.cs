@@ -91,7 +91,7 @@ namespace ChessMaster
             pb.Tag = null;
 
         }
-        private void RealizarJugada(Point anterior, Point dest)
+        private void MoverPieza(Point anterior, Point dest)
         {
             LimpiarImagen(anterior.X, anterior.Y);
             SetImagen(dest);
@@ -117,7 +117,7 @@ namespace ChessMaster
         }
 
         List<Point> movimientosCache = new List<Point>();
-        private void MostrarPosiblesMovimientos(bool mostrar)
+        private void MostrarPosiblesMovimientos(bool mostrar, bool mostrarComer = false)
         {
             List<Point> posiblesMovimiento = new List<Point>();
             Image imgPunto = null;
@@ -144,7 +144,7 @@ namespace ChessMaster
                 pb.Image = imgPunto;
                 pb.Tag = bHayAlgo;
             }
-
+            MostrarPosibleComer(mostrarComer);
         }
 
         List<Point> comerCache = new List<Point>();
@@ -172,19 +172,34 @@ namespace ChessMaster
         }
         bool pbSelected = false;
 
+        private void seleccionar_pieza(Point pos, PictureBox pb, Color color, bool mostrarMovs, bool mostrarComer)
+        {
+            pb.BackColor = color;
+            MostrarPosiblesMovimientos(mostrarMovs,mostrarComer);
+        }
+
+        private void PedirCambioCoronacion(char color)
+        {
+            while (juego.PiezaSelected == null)
+            {
+                Form3 form3 = new Form3(color);
+                form3.ShowDialog();
+                juego.PiezaSelected = form3.piezaSelected;
+            }
+        }
+
         private void pb_click(object sender, EventArgs e)
         {
             char jaqueMate = ' ';
             //seleccionar una foto
             if ( !pbSelected  && ((PictureBox)sender).Image != null)
             {
+                
                 juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
-                if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
+                if (juego.PiezaTurnoJugador(juego.Desde))
                 {
-                    ((PictureBox)sender).BackColor = Color.Chocolate;
+                    seleccionar_pieza(juego.Desde, ((PictureBox)sender), Color.Chocolate, true, true);
                     pbSelected = true;
-                    MostrarPosiblesMovimientos(true);
-                    MostrarPosibleComer(true);
                 }
             }
             else if(pbSelected)
@@ -192,13 +207,11 @@ namespace ChessMaster
                 //if - deseleccionar una foto
                 if (((PictureBox)sender).BackColor == Color.Chocolate)
                 {
+                    seleccionar_pieza(juego.Desde, ((PictureBox)sender), Color.Transparent, false, false);
                     pbSelected = false;
-                    ((PictureBox)sender).BackColor = Color.Transparent;
-                    MostrarPosiblesMovimientos(false);
-                    MostrarPosibleComer(false);
 
                 }//cambiar ficha
-                if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent)
+                else if (((PictureBox)sender).Tag == null && ((PictureBox)sender).BackColor == Color.Transparent)
                 {
                     Point coord_img = new Point();
                     coord_img = ObtenerCoordImagen(((PictureBox)sender).Name);
@@ -211,7 +224,7 @@ namespace ChessMaster
 
                         juego.Desde = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
-                        if (juego.tablero[juego.Desde.X, juego.Desde.Y]._color == juego.Turno)
+                        if (juego.PiezaTurnoJugador(juego.Desde))
                         {
                             ((PictureBox)sender).BackColor = Color.Chocolate;
                             pbSelected = true;
@@ -226,24 +239,18 @@ namespace ChessMaster
                     //realiza jugada
                     juego.Hasta = ObtenerCoordImagen(((PictureBox)sender).Name.ToString());
 
-                    if (juego.PudeRealizarJugada())
+                    if (juego.RealizarJugada())
                     {
                         pbSelected = false;
-                        RealizarJugada(juego.Desde, juego.Hasta);
-                        MostrarPosiblesMovimientos(false);
-                        MostrarPosibleComer(false);
+                        MoverPieza(juego.Desde, juego.Hasta);
+                        MostrarPosiblesMovimientos(false,false);
 
                         jaqueMate = juego.JaqueMate();
-                        if (jaqueMate == ' ')
+                        if (jaqueMate == ' ') // no hay jaquemate
                         {
-                            if (juego.Hasta.Y == 7 && juego.tablero[juego.Hasta.X, juego.Hasta.Y] is peon && juego.tablero[juego.Hasta.X, juego.Hasta.Y]._color == 'b')
+                            if (juego.EvaluarConvertirPeon('b')) 
                             {
-                                while (juego.PiezaSelected == null)
-                                {
-                                    Form3 form3 = new Form3('b');
-                                    form3.ShowDialog();
-                                    juego.PiezaSelected = form3.piezaSelected;
-                                }
+                                PedirCambioCoronacion('b');
                                 if (juego.PiezaSelected == "Caballo")
                                 {
                                     juego.agregar_pieza(new caballo(juego.Hasta.X, juego.Hasta.Y, 'b', Properties.Resources.bCaballo, true));
@@ -266,14 +273,9 @@ namespace ChessMaster
                                 }
                                 juego.PiezaSelected = null;
                             }
-                            if (juego.Hasta.Y == 0 && juego.tablero[juego.Hasta.X, juego.Hasta.Y] is peon && juego.tablero[juego.Hasta.X, juego.Hasta.Y]._color == 'n')
+                            else if (juego.EvaluarConvertirPeon('n'))
                             {
-                                while (juego.PiezaSelected == null)
-                                {
-                                    Form3 form3 = new Form3(color = 'n');
-                                    form3.ShowDialog();
-                                    juego.PiezaSelected = form3.piezaSelected;
-                                }
+                                PedirCambioCoronacion('n');
                                 //
                                 if (juego.PiezaSelected == "Caballo")
                                 {
@@ -315,7 +317,6 @@ namespace ChessMaster
 
             }
         }
-
         private PictureBox TraerPBDelTablero(int X, int Y)
         {
             PictureBox pb = new PictureBox();
@@ -630,15 +631,12 @@ namespace ChessMaster
 
         private void btnReiniciar_Click(object sender, EventArgs e)
         {
-            juego = new juegoAjedrez();
-
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
                 {
                     LimpiarImagen(x, y);
                 }
-
             }
             inicializarJuego();
             btnJugar.Enabled = true;
@@ -655,6 +653,11 @@ namespace ChessMaster
                 formInicio.Show();
 
             }
+        }
+
+        private void FormTablero_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
